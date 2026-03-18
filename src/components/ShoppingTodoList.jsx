@@ -33,7 +33,7 @@ const ShoppingTodoList = () => {
       <div className="flex items-center justify-between">
         <div className="space-y-1">
           <h2 className="text-3xl font-black text-slate-900 dark:text-white flex items-center gap-3">
-            <div className="bg-emerald-50 dark:bg-emerald-900/20 p-2.5 rounded-2xl text-emerald-600 dark:text-emerald-400">
+            <div className="bg-brand/10 dark:bg-brand/20 p-2.5 rounded-2xl text-brand">
               <Sparkles size={24} />
             </div>
             Gear List
@@ -48,11 +48,11 @@ const ShoppingTodoList = () => {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="What premium gear is next?"
-          className="w-full pl-6 pr-16 py-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl text-sm font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-emerald-50 dark:focus:ring-emerald-900/20 focus:border-emerald-500 focus:bg-white dark:focus:bg-slate-700 transition-all outline-none"
+          className="w-full pl-6 pr-16 py-5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl text-sm font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-brand/10 dark:focus:ring-brand/20 focus:border-brand focus:bg-white dark:focus:bg-slate-700 transition-all outline-none"
         />
         <button
           type="submit"
-          className="absolute right-2 top-2 bottom-2 aspect-square bg-slate-900 dark:bg-indigo-600 text-white rounded-2xl flex items-center justify-center hover:bg-emerald-600 transition-all active:scale-90"
+          className="absolute right-2 top-2 bottom-2 aspect-square bg-slate-900 dark:bg-brand text-white rounded-2xl flex items-center justify-center hover:bg-brand-hover transition-all active:scale-90"
         >
           <Plus size={24} strokeWidth={3} />
         </button>
@@ -81,16 +81,16 @@ const ShoppingTodoList = () => {
                 className={`flex items-center justify-between p-4 rounded-2xl border transition-all duration-300 ${
                   todo.completed 
                   ? 'bg-slate-50/50 dark:bg-slate-800/30 border-slate-50 dark:border-slate-800 opacity-60' 
-                  : 'bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-indigo-100 dark:hover:border-indigo-900'
+                  : 'bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-brand/20 dark:hover:border-brand/30'
                 }`}
               >
                 <div
                   className="flex items-center gap-4 cursor-pointer flex-1"
                   onClick={() => toggleTodo(todo.id)}
                 >
-                  <div className={`transition-colors ${todo.completed ? 'text-emerald-500' : 'text-slate-300 dark:text-slate-600'}`}>
+                  <div className={`transition-colors ${todo.completed ? 'text-brand' : 'text-slate-300 dark:text-slate-600'}`}>
                     {todo.completed ? (
-                      <CheckCircle size={22} fill="currentColor" className="text-white dark:text-slate-900 fill-emerald-500" />
+                      <CheckCircle size={22} fill="currentColor" className="text-white dark:text-slate-900 fill-brand" />
                     ) : (
                       <Circle size={22} strokeWidth={2.5} />
                     )}
@@ -101,7 +101,7 @@ const ShoppingTodoList = () => {
                 </div>
                 <button
                   onClick={() => deleteTodo(todo.id)}
-                  className="text-slate-300 dark:text-slate-600 hover:text-red-500 p-2 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+                  className="p-2 text-slate-300 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all"
                 >
                   <Trash2 size={18} />
                 </button>
@@ -114,14 +114,14 @@ const ShoppingTodoList = () => {
       {todos.length > 0 && (
         <div className="pt-6 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+            <div className="w-1.5 h-1.5 rounded-full bg-brand"></div>
             <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
               {todos.filter(t => t.completed).length} / {todos.length} Items Done
             </span>
           </div>
           <button 
             onClick={() => setTodos(todos.filter(t => !t.completed))}
-            className="text-[10px] font-black text-indigo-600 dark:text-indigo-400 uppercase tracking-widest hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors"
+            className="text-[10px] font-black text-brand uppercase tracking-widest hover:text-brand-hover transition-colors"
           >
             Clear Completed
           </button>

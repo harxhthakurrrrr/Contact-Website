@@ -94,7 +94,7 @@ const Home = ({ cart, addToCart, clearCart }) => {
       <section className="relative px-6 pt-20 pb-32 text-center overflow-hidden">
         {/* Background Elements */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full -z-10">
-          <div className="absolute top-0 left-1/4 w-64 h-64 bg-indigo-500/10 dark:bg-indigo-500/5 rounded-full blur-[100px]"></div>
+          <div className="absolute top-0 left-1/4 w-64 h-64 bg-brand/10 dark:bg-brand/5 rounded-full blur-[100px]"></div>
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 dark:bg-purple-500/5 rounded-full blur-[120px]"></div>
         </div>
 
@@ -104,14 +104,14 @@ const Home = ({ cart, addToCart, clearCart }) => {
           transition={{ duration: 0.6 }}
           className="max-w-4xl mx-auto space-y-10"
         >
-          <div className="inline-flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/30 px-4 py-1.5 rounded-full text-indigo-600 dark:text-indigo-400 text-xs font-black uppercase tracking-widest shadow-sm">
+          <div className="inline-flex items-center gap-2 bg-brand/10 dark:bg-brand/20 border border-brand/20 dark:border-brand/30 px-4 py-1.5 rounded-full text-brand text-xs font-black uppercase tracking-widest shadow-sm">
             <Sparkles size={14} />
             <span>Summer Collection 2026</span>
           </div>
           
           <h2 className="text-6xl md:text-8xl font-black text-slate-900 dark:text-white leading-[0.9] tracking-tighter">
             The Future of <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600">Smart Tech</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand via-purple-600 to-brand">Smart Tech</span>
           </h2>
           
           <p className="text-xl text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
@@ -119,7 +119,7 @@ const Home = ({ cart, addToCart, clearCart }) => {
           </p>
           
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <button className="bg-indigo-600 text-white px-10 py-5 rounded-[2rem] font-black text-lg shadow-2xl shadow-indigo-200 dark:shadow-indigo-900/40 hover:bg-indigo-700 hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+            <button className="bg-brand text-white px-10 py-5 rounded-[2rem] font-black text-lg shadow-2xl shadow-brand/20 dark:shadow-brand/40 hover:bg-brand-hover hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
               Start Shopping <ArrowRight size={20} />
             </button>
             <button className="bg-white dark:bg-slate-800 text-slate-900 dark:text-white px-10 py-5 rounded-[2rem] font-black text-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 active:scale-95 transition-all">
@@ -133,10 +133,10 @@ const Home = ({ cart, addToCart, clearCart }) => {
       <section className="max-w-7xl mx-auto px-6 mb-32">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 px-8 bg-white dark:bg-slate-900 rounded-[3rem] border border-slate-100 dark:border-slate-800 shadow-xl shadow-slate-200/50 dark:shadow-none">
           {[
-            { label: "Happy Clients", value: "50k+", icon: <Users size={20} className="text-indigo-600" /> },
-            { label: "Premium Products", value: "200+", icon: <Star size={20} className="text-indigo-600" /> },
-            { label: "Awards Won", value: "15+", icon: <Award size={20} className="text-indigo-600" /> },
-            { label: "Countries", value: "40+", icon: <TrendingUp size={20} className="text-indigo-600" /> },
+            { label: "Happy Clients", value: "50k+", icon: <Users size={20} className="text-brand" /> },
+            { label: "Premium Products", value: "200+", icon: <Star size={20} className="text-brand" /> },
+            { label: "Awards Won", value: "15+", icon: <Award size={20} className="text-brand" /> },
+            { label: "Countries", value: "40+", icon: <TrendingUp size={20} className="text-brand" /> },
           ].map((stat, i) => (
             <div key={i} className="text-center space-y-2">
               <div className="flex items-center justify-center gap-2 text-slate-400 dark:text-slate-500 font-bold uppercase tracking-widest text-[10px]">
@@ -149,46 +149,59 @@ const Home = ({ cart, addToCart, clearCart }) => {
         </div>
       </section>
 
-      {/* Main Content Grid */}
-      <div className="max-w-screen-2xl mx-auto px-6 grid grid-cols-1 xl:grid-cols-1 gap-12 mb-32">
-        <div className="space-y-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-b border-slate-100 dark:border-slate-800 pb-8">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-black text-sm uppercase tracking-widest">
-                <Star size={14} fill="currentColor" />
-                Featured Gear
-              </div>
-              <h3 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight">Handpicked for You</h3>
+      {/* Products Grid */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 text-brand font-black tracking-widest text-xs uppercase">
+              <Sparkles size={16} />
+              <span>Curated Collection</span>
             </div>
-            
-            <div className="relative group w-full md:w-96">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 group-focus-within:text-indigo-500 transition-colors" size={20} />
-              <input
-                type="text"
-                placeholder="Search premium products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-6 py-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl text-sm font-bold text-slate-900 dark:text-white focus:ring-4 focus:ring-indigo-50 dark:focus:ring-indigo-900/20 focus:border-indigo-500 transition-all shadow-sm"
-              />
-            </div>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white">
+              Featured <span className="text-brand">Gear</span>
+            </h2>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {filteredProducts.map(product => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                addToCart={addToCart}
-                cartItem={cart.find(item => item.id === product.id)}
-                onQuickView={() => setSelectedProduct(product)}
-              />
-            ))}
+          
+          <div className="flex items-center gap-4 bg-white dark:bg-slate-900 p-2 rounded-2xl shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-100 dark:border-slate-800 w-full md:w-96 group focus-within:ring-2 ring-brand/20 transition-all">
+            <Search className="text-slate-400 ml-3 group-focus-within:text-brand transition-colors" size={20} />
+            <input 
+              type="text" 
+              placeholder="Search premium products..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-transparent border-none focus:ring-0 text-sm font-bold w-full text-slate-900 dark:text-white placeholder:text-slate-400"
+            />
           </div>
         </div>
-      </div>
+
+        {filteredProducts.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+            {filteredProducts.map((product, idx) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+              >
+                <ProductCard 
+                  product={product} 
+                  addToCart={addToCart}
+                  cartItem={cart.find(item => item.id === product.id)}
+                  onQuickView={() => setSelectedProduct(product)}
+                />
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-24 bg-slate-50 dark:bg-slate-900/50 rounded-[3rem] border-2 border-dashed border-slate-200 dark:border-slate-800">
+            <p className="text-slate-400 font-bold text-lg">No products found matching your search.</p>
+          </div>
+        )}
+      </section>
 
       {/* Testimonials Section */}
-      <section className="bg-indigo-600 dark:bg-indigo-900/40 py-32 px-6 relative overflow-hidden transition-colors duration-300">
+      <section className="bg-brand dark:bg-brand/40 py-32 px-6 relative overflow-hidden transition-colors duration-300">
         <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[100px]"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/10 rounded-full blur-[80px]"></div>
         
@@ -205,13 +218,13 @@ const Home = ({ cart, addToCart, clearCart }) => {
                 whileHover={{ y: -10 }}
                 className="bg-white/10 backdrop-blur-md border border-white/20 p-10 rounded-[2.5rem] space-y-8"
               >
-                <Quote className="text-indigo-300" size={32} />
+                <Quote className="text-brand/50" size={32} />
                 <p className="text-indigo-50 text-lg font-medium leading-relaxed italic">"{testimonial.content}"</p>
                 <div className="flex items-center gap-4 pt-4 border-t border-white/10">
-                  <img src={testimonial.avatar} alt={testimonial.name} className="w-12 h-12 rounded-full border-2 border-indigo-400" />
+                  <img src={testimonial.avatar} alt={testimonial.name} className="w-12 h-12 rounded-full border-2 border-brand/50" />
                   <div>
                     <h4 className="font-black text-white text-sm">{testimonial.name}</h4>
-                    <p className="text-indigo-300 text-[10px] font-bold uppercase tracking-widest">{testimonial.role}</p>
+                    <p className="text-brand/80 text-[10px] font-bold uppercase tracking-widest">{testimonial.role}</p>
                   </div>
                 </div>
               </motion.div>

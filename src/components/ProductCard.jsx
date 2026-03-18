@@ -3,7 +3,7 @@ import { Plus, Minus, Star, ShoppingCart, Eye } from 'lucide-react';
 
 const ProductCard = ({ product, addToCart, cartItem, onQuickView }) => {
   return (
-    <div className="group bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-2 shadow-sm hover:shadow-2xl hover:shadow-indigo-100 dark:hover:shadow-none hover:border-indigo-100 dark:hover:border-indigo-900 transition-all duration-500">
+    <div className="group bg-white dark:bg-slate-900 rounded-[2.5rem] border border-slate-100 dark:border-slate-800 p-2 shadow-sm hover:shadow-2xl hover:shadow-brand/10 dark:hover:shadow-none hover:border-brand/20 dark:hover:border-brand/30 transition-all duration-500">
       {/* Image Container */}
       <div className="relative overflow-hidden rounded-[2rem] bg-slate-100 dark:bg-slate-800 aspect-square">
         <img
@@ -22,11 +22,11 @@ const ProductCard = ({ product, addToCart, cartItem, onQuickView }) => {
           </button>
         </div>
 
-        <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-2xl text-sm font-black text-indigo-600 dark:text-indigo-400 shadow-xl border border-white/50 dark:border-slate-700/50">
+        <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 py-2 rounded-2xl text-sm font-black text-brand shadow-xl border border-white/50 dark:border-slate-700/50">
           ${product.price}
         </div>
         {product.price > 500 && (
-          <div className="absolute top-4 left-4 bg-indigo-600 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">
+          <div className="absolute top-4 left-4 bg-brand text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">
             Premium
           </div>
         )}
@@ -59,7 +59,7 @@ const ProductCard = ({ product, addToCart, cartItem, onQuickView }) => {
               <span className="font-black text-slate-900 dark:text-white">{cartItem.quantity}</span>
               <button
                 onClick={() => addToCart(product, 1)}
-                className="w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-700 rounded-xl text-slate-400 dark:text-slate-300 hover:text-indigo-600 hover:shadow-md transition-all active:scale-90"
+                className="w-10 h-10 flex items-center justify-center bg-white dark:bg-slate-700 rounded-xl text-slate-400 dark:text-slate-300 hover:text-brand hover:shadow-md transition-all active:scale-90"
               >
                 <Plus size={16} strokeWidth={3} />
               </button>
@@ -67,7 +67,7 @@ const ProductCard = ({ product, addToCart, cartItem, onQuickView }) => {
           ) : (
             <button
               onClick={() => addToCart(product, 1)}
-              className="w-full bg-slate-900 dark:bg-indigo-600 text-white py-4 rounded-2xl font-black text-sm flex items-center justify-center gap-2 hover:bg-indigo-600 dark:hover:bg-indigo-700 hover:shadow-xl hover:shadow-indigo-100 transition-all active:scale-95 group/btn"
+              className="w-full bg-slate-900 dark:bg-brand text-white py-4 rounded-2xl font-black text-sm flex items-center justify-center gap-2 hover:bg-brand-hover hover:shadow-xl hover:shadow-brand/10 transition-all active:scale-95 group/btn"
             >
               <ShoppingCart size={18} className="group-hover/btn:-translate-y-0.5 transition-transform" />
               Add to Cart

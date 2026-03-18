@@ -12,13 +12,15 @@ import Game from './pages/Game';
 import Rewards from './pages/Rewards';
 import TechVision from './pages/TechVision';
 import TechStudio from './pages/TechStudio';
+import Comparison from './pages/Comparison';
 import Cart from './components/Cart';
+import ChatBubble from './components/ChatBubble';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { ToastProvider, useToast } from './context/ToastContext';
 import { 
   ShoppingBag, LayoutGrid, ListTodo, Info, Heart, ArrowRight, 
   MessageCircle, Newspaper, HelpCircle, Shield, Sun, Moon, X, ShoppingCart,
-  Gamepad2, Gift, Menu, Scan, Layout
+  Gamepad2, Gift, Menu, Scan, Layout, GitCompare
 } from 'lucide-react';
 
 const AnimatedRoutes = ({ cart, addToCart, clearCart, isCartOpen, setIsCartOpen }) => {
@@ -44,6 +46,7 @@ const AnimatedRoutes = ({ cart, addToCart, clearCart, isCartOpen, setIsCartOpen 
           <Route path="/rewards" element={<Rewards />} />
           <Route path="/vision" element={<TechVision />} />
           <Route path="/studio" element={<TechStudio />} />
+          <Route path="/compare" element={<Comparison />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
@@ -51,13 +54,25 @@ const AnimatedRoutes = ({ cart, addToCart, clearCart, isCartOpen, setIsCartOpen 
 };
 
 const Header = ({ cartTotalItems, setIsCartOpen }) => {
-  const { isDarkMode, toggleTheme } = useTheme();
+  const { isDarkMode, toggleTheme, primaryColor, setPrimaryColor } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showColorPicker, setShowColorPicker] = useState(false);
   
+  const colors = [
+    { name: 'Indigo', value: '#4f46e5' },
+    { name: 'Cyan', value: '#06b6d4' },
+    { name: 'Emerald', value: '#10b981' },
+    { name: 'Amber', value: '#f59e0b' },
+    { name: 'Red', value: '#ef4444' },
+    { name: 'Violet', value: '#8b5cf6' },
+    { name: 'Pink', value: '#ec4899' },
+  ];
+
   const navLinks = [
     { to: "/", label: "Home", icon: LayoutGrid },
     { to: "/todo", label: "Gear List", icon: ListTodo },
     { to: "/vision", label: "Vision", icon: Scan },
+    { to: "/compare", label: "Compare", icon: GitCompare },
     { to: "/studio", label: "Studio", icon: Layout },
     { to: "/game", label: "Play", icon: Gamepad2 },
     { to: "/rewards", label: "Rewards", icon: Gift },
@@ -67,12 +82,12 @@ const Header = ({ cartTotalItems, setIsCartOpen }) => {
     <header className="fixed top-0 left-0 right-0 z-[100] bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl border-b border-slate-200/60 dark:border-slate-800/60 transition-colors duration-300">
       <div className="max-w-screen-2xl mx-auto px-6 h-20 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3.5 group shrink-0">
-          <div className="bg-indigo-600 p-2.5 rounded-[1.25rem] text-white shadow-xl shadow-indigo-100 dark:shadow-indigo-900/20 group-hover:scale-110 transition-transform duration-300">
+          <div className="bg-brand p-2.5 rounded-[1.25rem] text-white shadow-xl shadow-brand/10 dark:shadow-brand/20 group-hover:scale-110 transition-transform duration-300">
             <ShoppingBag size={22} strokeWidth={2.5} />
           </div>
           <div className="flex flex-col -space-y-1">
             <span className="text-xl font-black tracking-tighter text-slate-900 dark:text-white leading-none">SHOPCRAFT</span>
-            <span className="text-[10px] font-bold text-indigo-600 tracking-widest uppercase pl-0.5">Premium Shop</span>
+            <span className="text-[10px] font-bold text-brand tracking-widest uppercase pl-0.5">Premium Shop</span>
           </div>
         </Link>
 
@@ -84,7 +99,7 @@ const Header = ({ cartTotalItems, setIsCartOpen }) => {
               to={link.to}
               className={({ isActive }) => 
                 `flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-black transition-all duration-300 ${
-                  isActive ? 'bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-md ring-1 ring-slate-900/5' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                  isActive ? 'bg-white dark:bg-slate-700 text-brand shadow-md ring-1 ring-slate-900/5' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                 }`
               }
             >
@@ -95,9 +110,46 @@ const Header = ({ cartTotalItems, setIsCartOpen }) => {
         </nav>
 
         <div className="flex items-center gap-3">
+          <div className="relative">
+            <button 
+              onClick={() => setShowColorPicker(!showColorPicker)}
+              className="p-3 rounded-2xl bg-slate-100/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-brand/5 dark:hover:bg-brand/10 hover:text-brand transition-all duration-300"
+              title="Change Theme Color"
+            >
+              <div className="w-5 h-5 rounded-full" style={{ backgroundColor: primaryColor }} />
+            </button>
+            
+            <AnimatePresence>
+              {showColorPicker && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  className="absolute top-full right-0 mt-3 p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 min-w-[200px]"
+                >
+                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3 px-1">Theme Color</p>
+                  <div className="grid grid-cols-4 gap-2">
+                    {colors.map(color => (
+                      <button
+                        key={color.value}
+                        onClick={() => {
+                          setPrimaryColor(color.value);
+                          setShowColorPicker(false);
+                        }}
+                        className={`w-8 h-8 rounded-full transition-transform hover:scale-110 active:scale-90 flex items-center justify-center ${primaryColor === color.value ? 'ring-2 ring-offset-2 ring-slate-400 dark:ring-slate-500' : ''}`}
+                        style={{ backgroundColor: color.value }}
+                        title={color.name}
+                      />
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           <button 
             onClick={toggleTheme}
-            className="p-3 rounded-2xl bg-slate-100/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300"
+            className="p-3 rounded-2xl bg-slate-100/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 hover:bg-brand/5 dark:hover:bg-brand/10 hover:text-brand transition-all duration-300"
           >
             {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
@@ -106,7 +158,7 @@ const Header = ({ cartTotalItems, setIsCartOpen }) => {
             onClick={() => setIsCartOpen(true)}
             className="relative cursor-pointer group"
           >
-            <div className="bg-slate-100/80 dark:bg-slate-800/80 p-3 rounded-2xl text-slate-700 dark:text-slate-300 group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/30 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-all duration-300">
+            <div className="bg-slate-100/80 dark:bg-slate-800/80 p-3 rounded-2xl text-slate-700 dark:text-slate-300 group-hover:bg-brand/5 dark:group-hover:bg-brand/10 group-hover:text-brand transition-all duration-300">
               <ShoppingCart size={20} />
             </div>
             {cartTotalItems > 0 && (
@@ -250,6 +302,8 @@ function AppContent() {
         />
       </main>
 
+      <ChatBubble />
+
       <footer className="bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 py-20 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
@@ -268,29 +322,30 @@ function AppContent() {
             <div className="space-y-6">
               <h4 className="text-xs font-black uppercase tracking-widest text-slate-900 dark:text-white">Explore</h4>
               <nav className="flex flex-col gap-4">
-                <Link to="/" className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors">Shop All</Link>
-                <Link to="/todo" className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors">Gear List</Link>
-                <Link to="/vision" className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors">Tech Vision</Link>
-                <Link to="/studio" className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors">Setup Studio</Link>
-                <Link to="/game" className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors">Tech Catch</Link>
+              <Link to="/" className="text-sm font-bold text-slate-400 hover:text-brand transition-colors">Shop All</Link>
+                <Link to="/todo" className="text-sm font-bold text-slate-400 hover:text-brand transition-colors">Gear List</Link>
+                <Link to="/vision" className="text-sm font-bold text-slate-400 hover:text-brand transition-colors">Tech Vision</Link>
+                <Link to="/compare" className="text-sm font-bold text-slate-400 hover:text-brand transition-colors">Compare Gear</Link>
+                <Link to="/studio" className="text-sm font-bold text-slate-400 hover:text-brand transition-colors">Setup Studio</Link>
+                <Link to="/game" className="text-sm font-bold text-slate-400 hover:text-brand transition-colors">Tech Catch</Link>
               </nav>
             </div>
 
             <div className="space-y-6">
               <h4 className="text-xs font-black uppercase tracking-widest text-slate-900 dark:text-white">Support</h4>
               <nav className="flex flex-col gap-4">
-                <Link to="/faq" className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors">FAQ Center</Link>
-                <Link to="/contact" className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors">Contact Us</Link>
-                <Link to="/rewards" className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors">Rewards Program</Link>
+                <Link to="/faq" className="text-sm font-bold text-slate-400 hover:text-brand transition-colors">FAQ Center</Link>
+                <Link to="/contact" className="text-sm font-bold text-slate-400 hover:text-brand transition-colors">Contact Us</Link>
+                <Link to="/rewards" className="text-sm font-bold text-slate-400 hover:text-brand transition-colors">Rewards Program</Link>
               </nav>
             </div>
 
             <div className="space-y-6">
               <h4 className="text-xs font-black uppercase tracking-widest text-slate-900 dark:text-white">Legal</h4>
               <nav className="flex flex-col gap-4">
-                <Link to="/legal" className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors">Terms of Service</Link>
-                <Link to="/legal" className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors">Privacy Policy</Link>
-                <Link to="/legal" className="text-sm font-bold text-slate-400 hover:text-indigo-600 transition-colors">Cookie Policy</Link>
+                <Link to="/legal" className="text-sm font-bold text-slate-400 hover:text-brand transition-colors">Terms of Service</Link>
+                <Link to="/legal" className="text-sm font-bold text-slate-400 hover:text-brand transition-colors">Privacy Policy</Link>
+                <Link to="/legal" className="text-sm font-bold text-slate-400 hover:text-brand transition-colors">Cookie Policy</Link>
               </nav>
             </div>
           </div>
