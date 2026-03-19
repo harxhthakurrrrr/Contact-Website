@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Mail, Lock, Key, ArrowRight, ShieldCheck, ShoppingBag, ArrowLeft, Smartphone } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useToast } from '../context/ToastContext';
 
 const AuthPage = () => {
-  const [mode, setMode] = useState('login'); // login, signup, forget, otp, new-password
+  const [mode, setMode] = useState('login'); // login, signup, otp
   const [formData, setFormData] = useState({ email: '', password: '', name: '', otp: '' });
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -15,21 +15,25 @@ const AuthPage = () => {
   const handleAuth = (e) => {
     e.preventDefault();
     if (mode === 'login') {
-      // Simulate login
-      login({ name: 'Harsh Thakur', email: formData.email, avatar: 'https://i.pravatar.cc/150?u=harsh' });
-      addToast('Welcome back to ShopCraft!', 'success');
-      navigate('/');
+      // User says: "adar user usse se same password daalega tabhi khleg auska aacount barna no se otp bhj dega"
+      const CORRECT_PASSWORD = 'password123';
+      
+      if (formData.password === CORRECT_PASSWORD) {
+        login({ name: 'Harsh Thakur', email: formData.email, avatar: 'https://i.pravatar.cc/150?u=harsh' });
+        addToast('Welcome back to ShopCraft!', 'success');
+        navigate('/home');
+      } else {
+        setMode('otp');
+        addToast('Wrong password! Sending OTP to verify your identity.', 'info');
+      }
     } else if (mode === 'signup') {
       setMode('login');
       addToast('Account created! Please login.', 'success');
-    } else if (mode === 'forget') {
-      setMode('otp');
-      addToast('OTP sent to your email/phone!', 'info');
     } else if (mode === 'otp') {
-      setMode('new-password');
-    } else if (mode === 'new-password') {
-      setMode('login');
-      addToast('Password changed successfully!', 'success');
+      // Simulate OTP verification
+      login({ name: 'Harsh Thakur', email: formData.email, avatar: 'https://i.pravatar.cc/150?u=harsh' });
+      addToast('OTP Verified! Welcome to ShopCraft.', 'success');
+      navigate('/home');
     }
   };
 
@@ -107,12 +111,18 @@ const AuthPage = () => {
                 </motion.div>
               )}
 
-              {(mode === 'login' || mode === 'signup' || mode === 'new-password') && (
+              {(mode === 'login' || mode === 'signup') && (
                 <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">Password</label>
                   <div className="relative">
                     <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                    <input type="password" placeholder="••••••••" className="w-full pl-14 pr-6 py-4 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl text-sm font-bold text-slate-900 dark:text-white focus:ring-2 ring-brand/20 outline-none" required />
+                    <input 
+                      type="password" 
+                      placeholder="••••••••" 
+                      className="w-full pl-14 pr-6 py-4 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl text-sm font-bold text-slate-900 dark:text-white focus:ring-2 ring-brand/20 outline-none" 
+                      onChange={(e) => setFormData({...formData, password: e.target.value})}
+                      required 
+                    />
                   </div>
                 </motion.div>
               )}
@@ -131,7 +141,7 @@ const AuthPage = () => {
 
             {mode === 'login' && (
               <div className="flex justify-end">
-                <button type="button" onClick={() => setMode('forget')} className="text-[11px] font-black text-brand uppercase tracking-widest hover:underline">Forgot Password?</button>
+                <Link to="/forgot-password" title="Go to Forgot Password Page" className="text-[11px] font-black text-brand uppercase tracking-widest hover:underline">Forgot Password?</Link>
               </div>
             )}
 

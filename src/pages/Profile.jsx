@@ -6,7 +6,7 @@ import { useToast } from '../context/ToastContext';
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, updateProfile } = useAuth();
   const { addToast } = useToast();
   const navigate = useNavigate();
 
@@ -14,6 +14,18 @@ const Profile = () => {
     logout();
     addToast('Logged out successfully', 'info');
     navigate('/auth');
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        updateProfile({ avatar: reader.result });
+        addToast('Profile picture updated!', 'success');
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   if (!user) return null;
@@ -31,9 +43,10 @@ const Profile = () => {
             <div className="w-40 h-40 rounded-[3rem] overflow-hidden border-4 border-brand/20 shadow-2xl">
               <img src={user.avatar} className="w-full h-full object-cover" alt="Profile" />
             </div>
-            <button className="absolute bottom-2 right-2 p-3 bg-brand text-white rounded-2xl shadow-xl hover:scale-110 transition-transform">
+            <label className="absolute bottom-2 right-2 p-3 bg-brand text-white rounded-2xl shadow-xl hover:scale-110 transition-transform cursor-pointer">
               <Camera size={20} />
-            </button>
+              <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
+            </label>
           </div>
 
           <div className="flex-1 text-center md:text-left space-y-4">

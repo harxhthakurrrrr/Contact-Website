@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, NavLink, useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Home from './pages/Home';
+import Landing from './pages/Landing';
 import About from './pages/About';
 import TodoPage from './pages/TodoPage';
 import Contact from './pages/Contact';
@@ -15,7 +16,9 @@ import TechStudio from './pages/TechStudio';
 import Comparison from './pages/Comparison';
 import SnakeGame from './pages/SnakeGame';
 import AuthPage from './pages/AuthPage';
+import ForgotPassword from './pages/ForgotPassword';
 import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
 import Cart from './components/Cart';
 import ChatBubble from './components/ChatBubble';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
@@ -41,8 +44,10 @@ const AnimatedRoutes = ({ cart, addToCart, clearCart, isCartOpen, setIsCartOpen 
         transition={{ duration: 0.3, ease: 'easeInOut' }}
       >
         <Routes location={location}>
-          <Route path="/auth" element={!isAuthenticated ? <AuthPage /> : <Navigate to="/" />} />
-          <Route path="/" element={isAuthenticated ? <Home cart={cart} addToCart={addToCart} clearCart={clearCart} /> : <Navigate to="/auth" />} />
+          <Route path="/" element={<Landing />} />
+          <Route path="/auth" element={!isAuthenticated ? <AuthPage /> : <Navigate to="/home" />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/home" element={isAuthenticated ? <Home cart={cart} addToCart={addToCart} clearCart={clearCart} /> : <Navigate to="/auth" />} />
           <Route path="/todo" element={isAuthenticated ? <TodoPage /> : <Navigate to="/auth" />} />
           <Route path="/profile" element={isAuthenticated ? <Profile /> : <Navigate to="/auth" />} />
           <Route path="/about" element={<About />} />
@@ -56,6 +61,7 @@ const AnimatedRoutes = ({ cart, addToCart, clearCart, isCartOpen, setIsCartOpen 
           <Route path="/studio" element={isAuthenticated ? <TechStudio /> : <Navigate to="/auth" />} />
           <Route path="/compare" element={isAuthenticated ? <Comparison /> : <Navigate to="/auth" />} />
           <Route path="/snake" element={isAuthenticated ? <SnakeGame /> : <Navigate to="/auth" />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
     </AnimatePresence>
@@ -70,7 +76,7 @@ const Header = ({ cartTotalItems, setIsCartOpen }) => {
   const navigate = useNavigate();
 
   const navLinks = [
-    { to: "/", label: "Home", icon: LayoutGrid },
+    { to: isAuthenticated ? "/home" : "/", label: "Home", icon: LayoutGrid },
     { to: "/todo", label: "Gear List", icon: ListTodo },
     { to: "/vision", label: "Vision", icon: Scan },
     { to: "/compare", label: "Compare", icon: GitCompare },
@@ -85,7 +91,7 @@ const Header = ({ cartTotalItems, setIsCartOpen }) => {
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl border-b border-slate-200/60 dark:border-slate-800/60 transition-colors duration-300">
       <div className="max-w-screen-2xl mx-auto px-6 h-20 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3.5 group shrink-0">
+        <Link to={isAuthenticated ? "/home" : "/"} className="flex items-center gap-3.5 group shrink-0">
           <div className="bg-brand p-2.5 rounded-[1.25rem] text-white shadow-xl shadow-brand/10 dark:shadow-brand/20 group-hover:scale-110 transition-transform duration-300">
             <ShoppingBag size={22} strokeWidth={2.5} />
           </div>
@@ -375,7 +381,7 @@ function AppContent() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
             <div className="space-y-6">
-              <Link to="/" className="flex items-center gap-3 opacity-80 hover:opacity-100 transition-opacity">
+              <Link to={isAuthenticated ? "/home" : "/"} className="flex items-center gap-3 opacity-80 hover:opacity-100 transition-opacity">
                 <div className="bg-brand p-2 rounded-xl text-white">
                   <ShoppingBag size={18} />
                 </div>
