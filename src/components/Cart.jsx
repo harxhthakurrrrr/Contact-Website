@@ -154,7 +154,7 @@ const Cart = ({ cart, updateCart, clearCart }) => {
                   <Truck size={14} /> Shipping Details
                 </h3>
                 <div className="grid grid-cols-1 gap-3">
-                  <input placeholder="Full Name" className="w-full px-5 py-3.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-sm font-bold outline-none focus:ring-2 ring-brand/20 dark:text-white" defaultValue="Harsh Thakur" />
+                  <input placeholder="Full Name" className="w-full px-5 py-3.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-sm font-bold outline-none focus:ring-2 ring-brand/20 dark:text-white" defaultValue="" />
                   <input placeholder="Shipping Address" className="w-full px-5 py-3.5 bg-slate-50 dark:bg-slate-800 rounded-xl text-sm font-bold outline-none focus:ring-2 ring-brand/20 dark:text-white" defaultValue="123 Tech Lane, Silicon Valley" />
                 </div>
               </div>
@@ -163,6 +163,7 @@ const Cart = ({ cart, updateCart, clearCart }) => {
                 <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
                   <CreditCard size={14} /> Payment Method
                 </h3>
+                
                 <div className="grid grid-cols-2 gap-3">
                   <div className="p-4 bg-brand/5 border-2 border-brand rounded-2xl flex flex-col items-center gap-2 cursor-pointer">
                     <CreditCard className="text-brand" />

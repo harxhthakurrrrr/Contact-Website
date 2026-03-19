@@ -19,7 +19,7 @@ const AuthPage = () => {
       const CORRECT_PASSWORD = 'password123';
       
       if (formData.password === CORRECT_PASSWORD) {
-        login({ name: 'Harsh Thakur', email: formData.email, avatar: 'https://i.pravatar.cc/150?u=harsh' });
+        login({ name: formData.name, email: formData.email, avatar: 'https://i.pravatar.cc/150?u=harsh' });
         addToast('Welcome back to ShopCraft!', 'success');
         navigate('/home');
       } else {
@@ -31,7 +31,7 @@ const AuthPage = () => {
       addToast('Account created! Please login.', 'success');
     } else if (mode === 'otp') {
       // Simulate OTP verification
-      login({ name: 'Harsh Thakur', email: formData.email, avatar: 'https://i.pravatar.cc/150?u=harsh' });
+      login({ name: '', email: formData.email, avatar: 'https://i.pravatar.cc/150?u=harsh' });
       addToast('OTP Verified! Welcome to ShopCraft.', 'success');
       navigate('/home');
     }
