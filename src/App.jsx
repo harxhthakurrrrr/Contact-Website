@@ -19,6 +19,7 @@ import AuthPage from './pages/AuthPage';
 import ForgotPassword from './pages/ForgotPassword';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
+import TechVault from './TechVault/Vault';
 import Cart from './components/Cart';
 import ChatBubble from './components/ChatBubble';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
@@ -61,6 +62,7 @@ const AnimatedRoutes = ({ cart, addToCart, clearCart, isCartOpen, setIsCartOpen 
           <Route path="/studio" element={isAuthenticated ? <TechStudio /> : <Navigate to="/auth" />} />
           <Route path="/compare" element={isAuthenticated ? <Comparison /> : <Navigate to="/auth" />} />
           <Route path="/snake" element={isAuthenticated ? <SnakeGame /> : <Navigate to="/auth" />} />
+          <Route path="/vault" element={isAuthenticated ? <TechVault /> : <Navigate to="/auth" />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
@@ -81,6 +83,7 @@ const Header = ({ cartTotalItems, setIsCartOpen }) => {
     { to: "/vision", label: "Vision", icon: Scan },
     { to: "/compare", label: "Compare", icon: GitCompare },
     { to: "/studio", label: "Studio", icon: Layout },
+    { to: "/vault", label: "Vault", icon: Lock },
     { to: "/game", label: "Play", icon: Gamepad2 },
     { to: "/rewards", label: "Rewards", icon: Gift },
   ];
