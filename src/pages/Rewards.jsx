@@ -28,9 +28,9 @@ const Rewards = () => {
       {/* Points System */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[
-          { title: "Bronze Tier", points: "0 - 500 pts", perks: ["Standard Shipping", "Weekly Newsletter"], color: "text-orange-400", bg: "bg-orange-50/50 dark:bg-orange-900/10" },
+          { title: "Bronze Tier", points: "0 - 500 pts", perks: ["Standard Shipping", "Weekly Newsletter"], color: "text-orange-400", bg: "bg-orange-50/50 dark:bg-orange-900/10", featured: true },
           { title: "Silver Tier", points: "500 - 2000 pts", perks: ["5% Discount", "Early Access Drops", "Priority Support"], color: "text-slate-400", bg: "bg-slate-50 dark:bg-slate-800/50", featured: true },
-          { title: "Gold Tier", points: "2000+ pts", perks: ["15% Lifetime Discount", "Free Express Shipping", "Personal Tech Concierge"], color: "text-yellow-500", bg: "bg-yellow-50/50 dark:bg-yellow-900/10" }
+          { title: "Gold Tier", points: "2000+ pts", perks: ["15% Lifetime Discount", "Free Express Shipping", "Personal Tech Concierge"], color: "text-yellow-500", bg: "bg-yellow-50/50 dark:bg-yellow-900/10" ,  featured: true}
         ].map((tier, idx) => (
           <motion.div 
             key={idx}

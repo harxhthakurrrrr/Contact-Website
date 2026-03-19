@@ -51,13 +51,13 @@ const Blog = () => {
         viewport={{ once: true }}
         className="text-center max-w-3xl mx-auto space-y-8"
       >
-        <div className="inline-flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border border-indigo-100 dark:border-indigo-800/30 shadow-sm">
+        <div className="inline-flex items-center gap-2 bg-brand/10 text-brand px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest border border-brand/20 shadow-sm">
           <Newspaper size={14} />
           <span>ShopCraft Insights</span>
         </div>
         <h2 className="text-5xl md:text-7xl font-black text-slate-900 dark:text-white leading-[0.9] tracking-tighter">
           Our Tech <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Journal.</span>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand to-purple-600">Journal.</span>
         </h2>
         <p className="text-xl text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
           Deep dives, tech reviews, and productivity insights from our experts. Stay ahead of the digital curve.
@@ -78,7 +78,7 @@ const Blog = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent"></div>
         <div className="absolute bottom-10 left-10 right-10 flex flex-col items-start gap-6">
-          <div className="flex items-center gap-2 bg-indigo-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-white">
+          <div className="flex items-center gap-2 bg-brand px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-white">
             <TrendingUp size={12} />
             <span>Trending Now</span>
           </div>
@@ -109,7 +109,7 @@ const Blog = () => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 alt={post.title}
               />
-              <div className="absolute top-4 left-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400 border border-white/50 dark:border-slate-700/50">
+              <div className="absolute top-4 left-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest text-brand border border-white/50 dark:border-slate-700/50">
                 {post.category}
               </div>
             </div>
@@ -119,9 +119,9 @@ const Blog = () => {
                 <div className="flex items-center gap-2"><Calendar size={14} /> {post.date}</div>
                 <div className="flex items-center gap-2"><Clock size={14} /> {post.readTime}</div>
               </div>
-              <h4 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">{post.title}</h4>
+              <h4 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight group-hover:text-brand transition-colors">{post.title}</h4>
               <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{post.excerpt}</p>
-              <button className="text-indigo-600 dark:text-indigo-400 font-black text-sm flex items-center gap-2 hover:translate-x-2 transition-transform">
+              <button className="text-brand font-black text-sm flex items-center gap-2 hover:translate-x-2 transition-transform">
                 Read More <ArrowRight size={16} />
               </button>
             </div>

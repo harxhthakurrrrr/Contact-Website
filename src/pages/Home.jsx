@@ -9,6 +9,7 @@ const PRODUCTS = [
     id: 1,
     name: "Apple Watch Series 9",
     price: 399,
+    category: "Wearables",
     image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=1000",
     description: "Advanced health sensors, powerful chip, and bright display."
   },
@@ -16,6 +17,7 @@ const PRODUCTS = [
     id: 2,
     name: "Sony WH-1000XM5",
     price: 348,
+    category: "Audio",
     image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=1000",
     description: "Industry-leading noise cancellation and premium sound quality."
   },
@@ -23,6 +25,7 @@ const PRODUCTS = [
     id: 3,
     name: "iPhone 15 Pro",
     price: 999,
+    category: "Smartphones",
     image: "https://images.unsplash.com/photo-1696446701796-da61225697cc?auto=format&fit=crop&q=80&w=1000",
     description: "Titanium design, A17 Pro chip, and advanced camera system."
   },
@@ -30,6 +33,7 @@ const PRODUCTS = [
     id: 4,
     name: "Kindle Paperwhite",
     price: 139,
+    category: "E-Readers",
     image: "https://images.unsplash.com/photo-1594980596870-8aa52a78d8cd?auto=format&fit=crop&q=80&w=1000",
     description: "The thinnest, lightest Kindle Paperwhite yet, with a flush-front design."
   },
@@ -37,6 +41,7 @@ const PRODUCTS = [
     id: 5,
     name: "Logitech MX Master 3S",
     price: 99,
+    category: "Peripherals",
     image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&q=80&w=1000",
     description: "Precision mouse with ultra-fast scrolling and ergonomic design."
   },
@@ -44,10 +49,13 @@ const PRODUCTS = [
     id: 6,
     name: "Nintendo Switch OLED",
     price: 349,
+    category: "Gaming",
     image: "https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?auto=format&fit=crop&q=80&w=1000",
     description: "7-inch OLED screen, wide adjustable stand, and enhanced audio."
   }
 ];
+
+const CATEGORIES = ["All", "Smartphones", "Wearables", "Audio", "Gaming", "Peripherals", "E-Readers"];
 
 const TESTIMONIALS = [
   {
@@ -76,10 +84,13 @@ const TESTIMONIALS = [
 const Home = ({ cart, addToCart, clearCart }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [activeCategory, setActiveCategory] = useState('All');
 
-  const filteredProducts = PRODUCTS.filter(p => 
-    p.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredProducts = PRODUCTS.filter(p => {
+    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = activeCategory === 'All' || p.category === activeCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="pb-24 dark:bg-slate-950 transition-colors duration-300">
@@ -172,6 +183,23 @@ const Home = ({ cart, addToCart, clearCart }) => {
               className="bg-transparent border-none focus:ring-0 text-sm font-bold w-full text-slate-900 dark:text-white placeholder:text-slate-400"
             />
           </div>
+        </div>
+
+        {/* Category Filters */}
+        <div className="flex flex-wrap items-center gap-3 mb-12">
+          {CATEGORIES.map(category => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`px-6 py-2.5 rounded-2xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                activeCategory === category
+                ? 'bg-brand text-white shadow-xl shadow-brand/20'
+                : 'bg-white dark:bg-slate-900 text-slate-400 hover:text-slate-600 dark:hover:text-white border border-slate-100 dark:border-slate-800'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
         </div>
 
         {filteredProducts.length > 0 ? (
