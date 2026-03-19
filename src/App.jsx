@@ -28,7 +28,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import { 
   ShoppingBag, LayoutGrid, ListTodo, Info, Heart, ArrowRight, 
   MessageCircle, Newspaper, HelpCircle, Shield, Sun, Moon, X, ShoppingCart,
-  Gamepad2, Gift, Menu, Scan, Layout, GitCompare, User, LogOut
+  Gamepad2, Gift, Menu, Scan, Layout, GitCompare, User, LogOut, Lock
 } from 'lucide-react';
 
 const AnimatedRoutes = ({ cart, addToCart, clearCart, isCartOpen, setIsCartOpen }) => {
