@@ -3,14 +3,17 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const saved = localStorage.getItem('theme');
-    return saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches);
-  });
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [primaryColor, setPrimaryColor] = useState('#4f46e5');
 
-  const [primaryColor, setPrimaryColor] = useState(() => {
-    return localStorage.getItem('primaryColor') || '#4f46e5'; // default indigo-600
-  });
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      setIsDarkMode(true);
+    }
+    const savedColor = localStorage.getItem('primaryColor');
+    if (savedColor) setPrimaryColor(savedColor);
+  }, []);
 
   useEffect(() => {
     const root = window.document.documentElement;

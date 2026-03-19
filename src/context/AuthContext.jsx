@@ -3,11 +3,17 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(() => {
+  const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
     const saved = localStorage.getItem('user');
-    return saved ? JSON.parse(saved) : null;
-  });
-  const [isAuthenticated, setIsAuthenticated] = useState(!!user);
+    if (saved) {
+      const userData = JSON.parse(saved);
+      setUser(userData);
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   const login = (userData) => {
     setUser(userData);

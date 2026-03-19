@@ -13,7 +13,12 @@ const SnakeGame = () => {
   const [direction, setDirection] = useState(INITIAL_DIRECTION);
   const [isGameOver, setIsGameOver] = useState(false);
   const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(localStorage.getItem('snakeHighScore') || 0);
+  const [highScore, setHighScore] = useState(0);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('snakeHighScore');
+    if (saved) setHighScore(parseInt(saved));
+  }, []);
   const [isPaused, setIsPaused] = useState(true);
   
   const gameRef = useRef(null);
